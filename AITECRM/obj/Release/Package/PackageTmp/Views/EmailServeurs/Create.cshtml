@@ -1,0 +1,105 @@
+﻿@model AITECRM.Models.EmailServeur
+<html>
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Serveur Email</title>
+</head>
+<body>
+        <h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                        @Html.Partial("Menu")
+                    </nav>
+                    <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                        <h2>
+                            <br /><br />
+                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <br /><br /><br />
+                                <div class="btn-group" data-toggle="buttons"> </div>
+
+                                <div class="container">
+                                    <h3>
+                                        @using (Html.BeginForm())
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            <hr />
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            <div class="form-group">
+                                                <label for="Port">Port</label>
+                                                    @Html.EditorFor(model => model.Port, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Port, "", new { @class = "text-danger" })
+                                            </div>
+
+                                        
+                                            <div class="col-md-6 mb-3">
+                                                <label for="DateAjout">Date d'Ajout</label>
+                                                <input type="text" class="form-control" id="DateAjout" name="DateAjout" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+                                            
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="ServeurAdresse">Adresse Serveur</label>
+                                                    @Html.EditorFor(model => model.ServeurAdresse, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.ServeurAdresse, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="AdresseCRM">Email d'envoie</label>
+                                                    @Html.EditorFor(model => model.AdresseCRM, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.AdresseCRM, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="PassWordCRM">Mot de passe</label>
+                                                    @Html.EditorFor(model => model.PassWordCRM, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.PassWordCRM, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="EtatConfig">Mot de passe</label>
+                                                    <select name="EtatConfig" id="EtatConfig" class="form-control form-control-lg">
+                                                        <option value="actif" selected="selected">Actif</option>
+                                                        <option value="inactif">Inactif</option>
+                                                    </select>
+                                                    @Html.ValidationMessageFor(model => model.EtatConfig, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Create" class="btn btn-default" />
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <center>  @Html.ActionLink("Liste des Configurations", "Index")</center>
+
+                                    
+                                    </h3>
+
+                                </div>
+                        </h2>
+                        <div>
+                            <h2>
+                                @Html.Partial("PagePrecedente")
+                            </h2>
+                        </div>
+
+                        <footer>
+                            <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                        </footer>
+                    </main>
+        </h4>
+
+
+   
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+ 

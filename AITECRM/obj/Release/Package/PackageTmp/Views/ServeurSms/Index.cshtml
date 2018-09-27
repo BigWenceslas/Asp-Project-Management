@@ -1,0 +1,121 @@
+﻿@model IEnumerable<AITECRM.Models.ServeurSms>
+@using GridMvc.Html
+<html>
+<head>
+
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete-contacts').click(function (event) {
+                var bouttonclick = $(event.target).closest('button');
+                var Iddelete = $(bouttonclick).attr('data-id');
+                $.ajax({
+                    url: '@Url.Action("Newdelete")',
+                    type: 'post',
+                    data: { id: Iddelete },
+                    success: function (data) {
+                        if (data.Suppression == "Ok") {
+                            $(bouttonclick).closest("tr").fadeOut(400, function () {
+                                $(this).remove();
+                            })
+                        }
+                    }
+                })
+            });
+        });
+
+    </script>
+    <title>Aite Crm Configurations Sms</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <br /><br /><br /><br />
+                    <h4>
+                        LISTE DES CONFIGURATIONS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVEAU", "Create", "ServeurSms", new { area = "" }, new { @class = "btn btn-outline-success" })
+                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                      
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ServerAdress)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Username)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PasswordUser)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SenderId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Port)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EtatConfig)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ServerAdress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PasswordUser)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SenderId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Port)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EtatConfig)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </h4>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+
+        </div>
+
+    </h4>
+</body>
+</html>
+
+
+

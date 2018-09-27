@@ -1,0 +1,99 @@
+﻿@model AITECRM.Models.ContactGroup
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Entreprises</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                  @Html.Partial("Menu")
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </h4>
+
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br /><br /><br />
+                @{
+                    ViewBag.Title = "NOUVEAU TYPE";
+                }
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+                        @Html.ActionLink("NOUVELLE ENTREPRISE", "Create")
+                        <br /><br />
+                        <div class="col-md-12 well">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div>
+                                        <h4>Types de contacts</h4>
+                                        <hr />
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Type_name)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Type_name)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Description)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Description)
+                                            </dd>
+
+                                        </dl>  
+                                    </div>
+                                    <p>
+                                        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }) |
+                                        @Html.ActionLink("Liste", "Index")
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h2>
+            @Html.Partial("PagePrecedente")
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+

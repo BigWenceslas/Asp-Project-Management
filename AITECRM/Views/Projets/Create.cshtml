@@ -1,0 +1,133 @@
+﻿@model AITECRM.Models.Projet
+
+
+<link rel="stylesheet" href="~/Content/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.theme.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.structure.css" />
+<script src="~/Scripts/jquery-ui.js"></script>
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Projet</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </h4>
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br /><br /><br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+
+
+@using (Html.BeginForm("Create", "Projets"))
+{
+                            @Html.AntiForgeryToken()
+                            @Html.ActionLink("NOUVEAU PROJET", "Create")<br /><br />
+                            <div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="Titre">Nom du projet</label>
+                                    <input type="text" class="form-control" id="Titre" name="Titre" placeholder="Entrer le nom du projet" value="" required>
+                                    @Html.ValidationMessageFor(model => model.Titre, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="Description">Description</label>
+                                    <input type="text" class="form-control" id="Description" name="Description" placeholder="Description" value="" required>
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                 </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="Date_debut">Date de debut</label>
+                                    <input type="text" class="form-control" id="Date_debut" name="Date_debut" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+                             </div>
+                            <div>
+                            <div class="col-md-7 mb-3">
+                              <label for="Date_fin">Date de fin</label>
+                                <input type="text" class="form-control" id="Date_fin" name="Date_fin" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+</div>
+                            <div class="col-md-5 mb-3">
+                              <label for="EtatProjet_">Etat</label>
+                                <select name="EtatProjet_" id="EtatProjet_" class="form-control">
+                                    <option value="En Cours" selected="selected">En Cours</option>
+                                    <option value="Termine">Termine </option>
+                                    <option value="Suspendu">Suspendu </option>
+                                </select>
+                            @Html.ValidationMessageFor(model => model.EtatProjet_, "", new { @class = "text-danger" })
+                            </div>
+
+  </div >
+
+<center>  <button class="btn btn-primary" type="submit">Enregistrer</button></center>
+}
+                </div>
+                </h4>
+                </div>
+                </h2>
+            <center>
+                <div>
+                    <h2>
+                        @Html.ActionLink("Liste des Projets", "Index")
+                    </h2>
+                </div>
+                @Html.Partial("PagePrecedente")
+            </center>
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+<script type="text/javascript">
+ $(function() {
+     $('#Date_debut').datepicker({
+         changeMonth: true,
+         changeYear: true,
+         dateFormat: 'dd/mm/yy'
+
+     });
+ });
+ $(function () {
+     $('#Date_fin').datepicker({
+         changeMonth: true,
+         changeYear: true,
+         dateFormat: 'dd/mm/yy'
+     });
+ });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+}

@@ -1,0 +1,105 @@
+﻿@model AITECRM.Models.CategorieActiviteParente
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Configurations </title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </h4>
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br/><br />
+                &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                @Html.Partial("MenuDonnes")
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <br /><br />
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <div class="container">
+                        @Html.ActionLink("NOUVELLE CATEGORIE D'ACTIVITE", "Create")<br />
+                        <div class="col-md-12 well">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+                                            <h4>CategorieActivite</h4>
+                                            <hr />
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">NOM</label>
+                                                @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">Description</label>
+                                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Enregistrer" class="btn btn-default" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h2>
+            <center>
+                <div>
+                    <h2>
+                        @Html.ActionLink("Liste des Categories d'Activites", "Index")
+                    </h2>
+                </div>
+
+            </center>
+            @Html.Partial("PagePrecedente")
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

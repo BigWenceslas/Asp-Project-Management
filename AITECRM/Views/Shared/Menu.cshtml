@@ -1,0 +1,44 @@
+﻿<h4>
+    <ul class="nav nav-pills flex-column">
+        @if ((Request.IsAuthenticated && User.IsInRole("Admin")) || (Request.IsAuthenticated && User.IsInRole("Analyse")) || (Request.IsAuthenticated && User.IsInRole("Semi_Admin")))
+        {
+            <li class="nav-item">
+                @Html.ActionLink("Analyse de donnees", "Index", "AnalyseDonnees")
+            </li>
+        }
+        @if ((Request.IsAuthenticated && User.IsInRole("Admin")) || (Request.IsAuthenticated && User.IsInRole("Operateur")) || (Request.IsAuthenticated && User.IsInRole("Semi_Admin")))
+        {
+            <li class="nav-item">
+                @Html.ActionLink("Activites", "Index", "Activites")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Produits", "Index", "Articles")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Ventes", "Index", "VenteArticles")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Entreprises", "Index", "Entreprises")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Contact", "Index", "Contacts")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Projets", "Index", "Projets")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Taches", "Index", "Taches")
+            </li>
+        }
+
+        @if ((Request.IsAuthenticated && User.IsInRole("Admin")) || (Request.IsAuthenticated && User.IsInRole("Communications")) || (Request.IsAuthenticated && User.IsInRole("Semi_Admin")))
+        {
+            <li class="nav-item">
+                @Html.ActionLink("E-mailings", "Campagne", "Emails")
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("SMS", "Campagne", "Sms")
+            </li>
+        }
+    </ul>
+</h4>

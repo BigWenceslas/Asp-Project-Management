@@ -1,0 +1,106 @@
+﻿@model IEnumerable<AITECRM.ViewModels.AllContactViewModel>
+ @using GridMvc.Html
+
+
+<html>
+<head>
+
+    <script>
+            $(document).ready(function () {
+                $('.btn-delete-contacts').click(function (event) {
+                    var bouttonclick = $(event.target).closest('button');
+                    var Iddelete = $(bouttonclick).attr('data-id');
+                    $.ajax({
+                        url: '@Url.Action("Newdelete")',
+                        type: 'post',
+                        data: { id: Iddelete },
+                        success: function (data) {
+                            if (data.Suppression == "Ok") {
+                                $(bouttonclick).closest("tr").fadeOut(400, function () {
+                                    $(this).remove();
+                                })
+                            }
+                        }
+                    })
+                });
+            });
+    </script>
+
+    <title>Aite Crm Contact</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <br />
+                    <h4>
+                        LISTE DES CONTACTS  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVEAU", "Create", "Contacts", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("IMPORTER", "Importer", "Contacts", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("Excel", "ExportExcel", "Contacts", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Pdf", "ExportPdf", "Contacts", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Word", "ExportWord", "Contacts", new { area = "" }, new { @class = "btn btn-outline-success" })
+                    </h4>
+
+
+                    <div class="table-responsive">
+                    </div>
+
+
+
+                    @Html.Grid(Model).Columns(colums =>
+               {
+                   colums.Add(p => p.NomEntreprise).Filterable(true).Sortable(true).Titled("Entreprise");
+                   colums.Add(p => p.NomGroupeContact).Filterable(true).Sortable(true).Titled("Categorie");
+                   colums.Add(p => p.NomContact).Filterable(true).Sortable(true).Titled("Contact");
+                   colums.Add(p => p.AdresseMail).Filterable(true).Sortable(true).Titled("Email");
+                   colums.Add(p => p.Numero).Filterable(true).Sortable(true).Titled("Telephone");
+                   colums.Add(p => p.DateEnregistrement).Filterable(true).Sortable(true).Titled("Date d'enregistrement");
+                   colums.Add(p => p.DateNaissance).Filterable(true).Sortable(true).Titled("Date de naissance");
+                   colums.Add()
+                          .Sanitized(false)
+                          .Encoded(false)
+                          .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.Idc }));
+                   colums.Add()
+                          .Sanitized(false)
+                          .Encoded(false)
+                          .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.Idc }));
+                   colums.Add()
+                                .Sanitized(false)
+                                .Encoded(false)
+                                .RenderValueAs(p => Html.ActionLink("Imprimer", "PrintDetails", new { id = p.Idc }));
+                   if ((Request.IsAuthenticated && User.IsInRole("Admin")) || (Request.IsAuthenticated && User.IsInRole("User_Pro")))
+                   {
+                       colums.Add()
+                             .Sanitized(false)
+                             .Encoded(false)
+                             .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.Idc + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+                   }
+               })
+
+
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+</body>
+</html>
+
+
+
+
+
+
+  

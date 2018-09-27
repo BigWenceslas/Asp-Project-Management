@@ -1,0 +1,39 @@
+﻿@model AITECRM.Models.Email
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>Email</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresse_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Addresse_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message_object)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message_object)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

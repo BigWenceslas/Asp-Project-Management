@@ -1,0 +1,115 @@
+﻿@model IEnumerable<AITECRM.ViewModels.ActiviteViewModel>
+@using GridMvc.Html
+
+<html>
+<head>
+    <title>Aite Crm Activites</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <br /><br /><br /><br />
+                    <h4>
+                        LISTE DES ACTIVITES &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVEAU", "Create", "Activites", new { area = "" }, new { @class = "btn btn-outline-success" })
+
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("EXCEL", "ExportExcel", "Activites", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("PDF", "ExportPdf", "Activites", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("WORD", "ExportWord", "Activites", new { area = "" }, new { @class = "btn btn-outline-success" })
+                      
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                        @Html.Grid(Model).Columns(columns =>
+                   {
+                       columns.Add(p => p.NomEntreprise).Filterable(true).Sortable(true).Titled("Entreprise");
+                       columns.Add(p => p.NomContact).Filterable(true).Sortable(true).Titled("Contact");
+                       columns.Add(p => p.CategorieActivite).Filterable(true).Sortable(true).Titled("Categorie");
+                       columns.Add(p => p.NomActivite).Filterable(true).Sortable(true).Titled("Nom");
+                       columns.Add(p => p.EtatActivite).Filterable(true).Sortable(true).Titled("Etat");
+                       columns.Add(p => p.Prix).Filterable(true).Sortable(true).Titled("Prix");
+                       columns.Add(p => p.NombreFichiers).Filterable(true).Sortable(true);
+                       columns.Add(p => p.DateCreation).Filterable(true).Sortable(true).Titled("Date Creation");
+                       columns.Add()
+                               .Sanitized(false)
+                               .Encoded(false)
+                               .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.ActiviteId }));
+
+                       columns.Add()
+                            .Sanitized(false)
+                            .Encoded(false)
+                            .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.ActiviteId }));
+
+                       columns.Add()
+                       .Sanitized(false)
+                       .Encoded(false)
+                       .RenderValueAs(p => Html.ActionLink("Imprimer", "PrintDetails", new { id = p.ActiviteId }));
+
+                       if ((Request.IsAuthenticated && User.IsInRole("Admin")) || (Request.IsAuthenticated && User.IsInRole("Semi_Admin")))
+                       {
+                           columns.Add()
+                                 .Sanitized(false)
+                                 .Encoded(false)
+                                 .RenderValueAs(p => "<button class='deleteItem btn btn-default btn-delete-contacts' data-id = '" + p.ActiviteId + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+                       }
+                   }
+                              ).WithPaging(15)
+                    </h4>
+                    
+                            @Html.ActionLink("Liste des Activites", "Index")
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+
+
+    <script>
+    $('.deleteItem').click(function (e) {
+        e.preventDefault();
+        var $ctrl = $(this);
+        if (confirm('Etes vous sur de vouloir supprimer ce fichier?')) {
+            $.ajax({
+                url: '@Url.Action("Delete")',
+                type: 'POST',
+                data: { id: $(this).data('id') }
+            }).done(function (data) {
+                if (data.Result == "OK") {
+                    $ctrl.closest('tr').remove();
+                }
+                else if (data.Result.Message) {
+                    alert(data.Result.Message);
+                }
+            }).fail(function () {
+                alert("Il ya un probleme,veuillez reessayer.");
+            })
+
+        }
+    });
+
+        $(function () {
+            $("#btnPrint").click(function () {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>
+
+

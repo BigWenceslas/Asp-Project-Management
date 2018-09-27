@@ -1,0 +1,108 @@
+﻿@model IEnumerable<AITECRM.Models.Entreprise>
+@using GridMvc.Html
+<html>
+<head>
+   
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete-contacts').click(function (event) {
+                var bouttonclick = $(event.target).closest('button');
+                var Iddelete = $(bouttonclick).attr('data-id');
+                $.ajax({
+                    url: '@Url.Action("Newdelete")',
+                    type: 'post',
+                    data: { id: Iddelete },
+                    success: function (data) {
+                        if (data.Suppression == "Ok") {
+                            $(bouttonclick).closest("tr").fadeOut(400, function () {
+                                $(this).remove();
+                            })
+                        }
+                    }
+                })
+            });
+        });
+
+        function Imprimer(el) {
+            var restorepage = document.body.innerHTML;
+            var printcontent = document.getElementById(el).innerHTML;
+            document.body.innerHTML = printcontent;
+            window.print();
+            document.body.innerHTML = restorepage;
+        }
+
+    </script>
+    <title>Aite Crm Entreprises</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <br /><br /><br /><br />
+                    <h4>
+                        LISTE DES ENTREPRISES &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVEAU", "Create", "Entreprises", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("IMPORTER", "Importer", "Entreprises", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("IMPRIMER", "PrintAllReport", "Entreprises", new { area = "" }, new { @class = "btn btn-outline-success" })
+                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("Excel", "ExportExcel", "Entreprises", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Pdf", "ExportPdf", "Entreprises", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Word", "ExportWord", "Entreprises", new { area = "" }, new { @class = "btn btn-outline-success" })
+
+                    </h4>
+                   
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                        @Html.Grid(Model).Columns(columns =>
+                   {
+                       columns.Add(p => p.Nom).Filterable(true).Sortable(true).Titled("Entreprise");
+                       columns.Add(p => p.Adresse).Filterable(true).Sortable(true).Titled("Adresse");
+                       columns.Add(p => p.Pays).Filterable(true).Sortable(true).Titled("Pays");
+                       columns.Add(p => p.Code_postal).Filterable(true).Sortable(true).Titled("Code Postal");
+                       columns.Add(p => p.Site_web).Filterable(true).Sortable(true).Titled("Site Web");
+                       columns.Add(p => p.Adresse_Email).Filterable(true).Sortable(true).Titled("Email");
+                       columns.Add(p => p.Telephone).Titled("Telephone").Filterable(true).Sortable(true);
+                       columns.Add()
+                               .Sanitized(false)
+                               .Encoded(false)
+                               .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.Id }));
+
+                       columns.Add()
+                            .Sanitized(false)
+                            .Encoded(false)
+                            .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.Id }));
+                       columns.Add()
+                           .Sanitized(false)
+                           .Encoded(false)
+                           .RenderValueAs(p => Html.ActionLink("Imprimer", "PrintDetails", new { id = p.Id }));
+
+               columns.Add()
+                     .Sanitized(false)
+                     .Encoded(false)
+                     .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.Id + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+
+                   })
+                    </h4>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+           
+        </div>
+       
+    </h4>
+</body>
+</html>
+

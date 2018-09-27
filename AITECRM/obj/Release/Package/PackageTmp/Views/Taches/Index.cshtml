@@ -1,0 +1,108 @@
+﻿@model IEnumerable<AITECRM.ViewModels.AllTachesViewModel>
+    @using GridMvc.Html
+
+
+
+<html>
+<head>
+
+    <script>
+    $(document).ready(function(){
+        $('.btn-delete-contacts').click(function (event) {
+            var bouttonclick = $(event.target).closest('button');
+            var Iddelete = $(bouttonclick).attr('data-id');
+            alert(Iddelete);
+            $.ajax({
+                url: '@Url.Action("Newdelete")',
+                type: 'post',
+                data: { id: Iddelete },
+                success: function (data){
+                    if (data.Suppression == "Ok") {
+                        $(bouttonclick).closest("tr").fadeOut(400, function () {
+                            $(this).remove();
+                        })
+                    }
+                }
+            })
+        });
+    });
+    </script>
+
+    <title>Aite Crm Taches</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                   @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <br /><br /><br /><br />
+                    <h4>
+                        LISTE DES TACHES &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVEAU", "Create", "Taches", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        <button class="btn btn-outline-success" type="button" href="news_client.html"><h4>IMPORTER</h4></button>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("Excel", "ExportExcel", "Taches", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Pdf", "ExportPdf", "Taches", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Word", "ExportWord", "Taches", new { area = "" }, new { @class = "btn btn-outline-success" })
+
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                        @Html.Grid(Model).Columns(colums =>
+                   {
+                       colums.Add(p => p.NomEntreprise).Filterable(true).Sortable(true).Titled("Entreprise");
+                       colums.Add(p => p.GroupeContact).Filterable(true).Sortable(true).Titled("Categorie");
+                       colums.Add(p => p.NomContact).Filterable(true).Sortable(true).Titled("Nom");
+                       colums.Add(p => p.Intitule).Filterable(true).Sortable(true).Titled("Intitule");
+                       colums.Add(p => p.Type_tache).Filterable(true).Sortable(true).Titled("Type de Tache"); ;
+                       colums.Add(p => p.Cout).Filterable(true).Sortable(true).Titled("Cout"); ;
+                       colums.Add(p => p.Date_debut).Filterable(true).Sortable(true).Titled("Debut tache"); ;
+                       colums.Add(p => p.Date_Fin).Filterable(true).Sortable(true).Titled("Fin Tache"); ;
+                       colums.Add(p => p.LancementProjet).Filterable(true).Sortable(true).Titled("Lancement Projet"); ;
+                       colums.Add(p => p.ClotureProjet).Filterable(true).Sortable(true).Titled("Cloture Projet"); ;
+                       colums.Add()
+                              .Sanitized(false)
+                              .Encoded(false)
+                              .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.IdTache }));
+                       colums.Add()
+                              .Sanitized(false)
+                              .Encoded(false)
+                              .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.IdTache }));
+                       colums.Add()
+                                    .Sanitized(false)
+                                    .Encoded(false)
+                                    .RenderValueAs(p => Html.ActionLink("Imprimer", "PrintDetails", new { id = p.IdTache }));
+
+                       colums.Add()
+                             .Sanitized(false)
+                             .Encoded(false)
+                             .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.IdTache + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+
+                   })
+                    </h4>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+</body>
+</html>
+
+
+
+
+
+

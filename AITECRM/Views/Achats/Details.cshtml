@@ -1,0 +1,50 @@
+﻿@model AITECRM.Models.Achat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Achat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Projet_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projet_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cout)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Achat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Achat)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

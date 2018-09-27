@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html">Activités<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Contact", "Index", "Contacts")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Entreprises", "Index", "Entreprises")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("E-mailings", "Index", "Emails")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("SMS", "Index", "Sms")
+                    </li>
+                </ul>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</body>

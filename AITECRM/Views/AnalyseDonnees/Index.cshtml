@@ -1,0 +1,143 @@
+﻿
+<html>
+<head>
+
+   
+    <link href="~/Content/highcharts.css" rel="stylesheet" />
+  
+    <title>Aite Crm Analyse de donnees</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <br /><br /><br /><br />
+                    <h4>
+                        Analyse de donnee &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div><hr />
+                        @Html.Partial("AnalyseMenu")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                       </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                      
+                             
+                    </h4>
+
+                    <div id="container" style="width:90%; height:400px;">
+                        <div class="col-md-4">
+                            <button id="chartbtn" class="btn btn-primary" type="button">Click to create Chart Pays / Entreprise</button>
+
+                        </div>
+                    </div>
+                  
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+             
+            </div>
+        </div>
+    </h4>
+
+    <script>
+
+        function series(data) {
+            var categories = [];
+            var data_ = [];
+            for (var i = 0; i < data.length; i++) {
+                data_.push(data[i]["data"]);
+                categories.push(data[i]["name"]);
+            }
+
+
+            return { "categorie": categories, "data": data_ };
+
+        }
+
+        $(document).ready(function () {
+            var x;
+            var y;
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("NombreTotalEntreprisePays")',
+                datatype: "json",
+                success: function (data) {
+                    x = series(data);
+                    console.log(x);
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("NombreTotalContactPays")',
+                        datatype: "json",
+                        success: function (data1) {
+
+                            y = series(data1);
+
+
+                            console.log(y);
+
+                            Highcharts.chart('container', {
+                                chart: {
+                                    type: 'line'
+                                },
+                                title: {
+                                    text: 'Entreprise'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                xAxis: {
+                                    categories: x['categorie']
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Nombre'
+                                    }
+                                },
+                                plotOptions: {
+                                    line: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                                series: [{
+                                    name: 'Pays/Entreprise',
+                                    data: x['data']
+                                },
+                                {
+                                    name: 'Pays/Contact',
+                                    data: y['data']
+                                }]
+                            });
+                        }
+                    });
+
+        }
+        });
+
+
+            });
+
+
+
+         
+    </script>
+    <script src="~/Scripts/highcharts.js"></script>
+    <script src="~/Scripts/exporting.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+</body>
+</html>
+
+

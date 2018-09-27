@@ -1,0 +1,176 @@
+﻿@model AITECRM.Models.Tache
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Taches</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            @Html.ActionLink("Analyse de donnees", "Index", "AnalyseDonnees")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Activites", "Index", "Activites")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Produits", "Index", "Articles")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Ventes", "Index", "VenteProduits")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Contact", "Index", "Contacts")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Entreprises", "Index", "Entreprises")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("E-mailings", "Index", "Emails")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("SMS", "Index", "Sms")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Type Contact", "Index", "ContactGroups")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Projets", "Index", "Projets")
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Taches", "Index", "Taches")
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </h4>
+
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br /><br /><br />
+                @{
+                    ViewBag.Title = "NOUVELLE ENTREPRISE";
+                }
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+                        @Html.ActionLink("NOUVELLE ENTREPRISE", "Create")
+                        <br /><br />
+                        <div class="col-md-12 well">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div>
+                                        <h4>Tache</h4>
+                                        <hr />
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Contact.Contact_name)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Contact.Contact_name)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Projet.Titre)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Projet.Titre)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Intitule)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Intitule)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Description)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Description)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Type_tache)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Type_tache)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Date_debut)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Date_debut)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Date_fin)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Date_fin)
+                                            </dd>
+
+                                        </dl>
+                                    </div>
+                                    <p>
+                                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                                        @Html.ActionLink("Back to List", "Index")
+                                    </p>
+                                </div>
+                                @Html.Partial("PagePrecedente")
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h2>
+
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+
+
+

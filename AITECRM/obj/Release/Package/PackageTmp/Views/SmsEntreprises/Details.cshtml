@@ -1,0 +1,44 @@
+﻿@model AITECRM.Models.SmsEntreprise
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>SmsEntreprise</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Telephone_)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Telephone_)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Message)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Message)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_envoie)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Date_envoie)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

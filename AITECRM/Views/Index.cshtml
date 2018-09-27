@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AITECRM.ViewModels.AllAchatsViewModel>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@section scripts {
+    <script>
+    $(document).ready(function(){
+        $('.btn-delete-contacts').click(function (event) {
+            var bouttonclick = $(event.target).closest('button');
+            var Iddelete = $(bouttonclick).attr('data-id');
+            alert(Iddelete);
+            $.ajax({
+                url: '@Url.Action("Newdelete")',
+                type: 'post',
+                data: { id: Iddelete },
+                success: function (data){
+                    if (data.Suppression == "Ok") {
+                        $(bouttonclick).closest("tr").fadeOut(400, function () {
+                            $(this).remove();
+                        })
+                    }
+                }
+            })
+        });
+    });
+    </script>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@Html.Grid(Model).Columns(colums =>
+{
+    colums.Add(p => p.NomEntreprise).Filterable(true).Sortable(true);
+    colums.Add(p => p.NomAcheteur).Filterable(true).Sortable(true);
+    colums.Add(p => p.TypeAcheteur).Filterable(true).Sortable(true);
+    colums.Add(p => p.Cout).Filterable(true).Sortable(true);
+    colums.Add(p => p.Date_achat).Filterable(true).Sortable(true);
+    colums.Add()
+           .Sanitized(false)
+           .Encoded(false)
+           .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.IdAchat }));
+    colums.Add()
+           .Sanitized(false)
+           .Encoded(false)
+           .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.IdAchat }));
+
+    colums.Add()
+          .Sanitized(false)
+          .Encoded(false)
+          .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.IdAchat + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+
+})
+
+
+<a href="@Url.Action("ExportPdf","Achats")">Exporter La Liste Au format Pdf</a>
+<a href="@Url.Action("ExportExcel","Achats")">Exporter La Liste au format Excel</a>
+<a href="@Url.Action("ExportWord","Achats")">Exporter La Liste au format Word</a>

@@ -1,0 +1,289 @@
+﻿@model AITECRM.ViewModels.PostDate
+<html>
+<head>
+    <link href="~/Content/highcharts.css" rel="stylesheet" />
+
+    <title>Aite Crm Analyse de donnees</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <br /><br /><br /><br />
+                    <h4>
+                        Analyse de donnee Ventes Produits &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div><hr />
+                        @Html.Partial("AnalyseMenu")
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4></h4>
+                    <form>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Date Inferieure</label>
+                                @Html.TextBoxFor(model => model.Inf, new { @class = "form-control", @Value = DateTime.Now })
+                                @Html.ValidationMessageFor(model => model.Inf, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date Superieure</label>
+                                @Html.TextBoxFor(model => model.Sup, new { @class = "form-control", @Value = DateTime.Now })
+                                @Html.ValidationMessageFor(model => model.Sup, "", new { @class = "text-danger" })
+                            </div>
+                            <button id="Newgraphe" class="btn btn-primary" type="button">Generer les graphes</button>
+                        </div>
+
+                    </form>
+
+                    <div id="container" style="width:90%; height:400px;">
+                        <div class="col-md-4">
+                          </div>
+                     </div>
+
+                    <div id="container1" style="width:90%; height:400px;">
+                        <div class="col-md-4"> </div>
+                    </div>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+    <script>
+        $(function () {
+            $('#Inf').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+        $(function () {
+            $('#Sup').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+        function series(data) {
+            var categories = [];
+            var data_ = [];
+            for (var i = 0; i < data.length; i++) {
+                data_.push(data[i]["data"]);
+                categories.push(data[i]["name"]);
+            }
+
+
+            return { "categorie": categories, "data": data_ };
+
+        }
+      
+        $(document).ready(function () {
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("NombreTotalAchatTypeProduit")',
+                datatype: "json",
+                success: function (data) {
+
+                  var x = series(data);
+                     console.log(x);
+
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Ventes'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        xAxis: {
+                            categories: x['categorie']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Nombre'
+                            }
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+                        series: [{
+                            name: 'Categorie Produits/Ventes',
+                            data: x['data']
+                        }]
+                    });
+                }
+            });
+
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ChiffreAffaireTypeProduit")',
+                datatype: "json",
+                success: function (data) {
+
+                    var x = series(data);
+                    console.log(x);
+
+                    Highcharts.chart('container1', {
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Ventes'
+                        },
+                        subtitle: {
+                            text: ''
+                        },
+                        xAxis: {
+                            categories: x['categorie']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Cout Total en FCFA'
+                            }
+                        },
+                        plotOptions: {
+                            line: {
+                                dataLabels: {
+                                    enabled: true
+                                },
+                                enableMouseTracking: false
+                            }
+                        },
+                        series: [{
+                            name: 'Categorie Produits/Montant Ventes',
+                            data: x['data']
+                        }]
+                    });
+                }
+            });
+
+            $(function () {
+                var Inf1 = $('#Inf').val();
+                var Sup1 = $('#Sup').val();
+
+                $('#Newgraphe').click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("VentesProduitsChiffre")',
+                        data: { inf: Inf1, sup: Sup1 },
+                        success: function (data) {
+
+                            var x = series(data);
+                            console.log(x);
+
+                            Highcharts.chart('container1', {
+                                chart: {
+                                    type: 'line'
+                                },
+                                title: {
+                                    text: 'Ventes'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                xAxis: {
+                                    categories: x['categorie']
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Nombre'
+                                    }
+                                },
+                                plotOptions: {
+                                    line: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                                series: [{
+                                    name: 'Categorie Produits/Montant Ventes',
+                                    data: x['data']
+                                }]
+                            });
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("VentesProduits")',
+                        data: { inf: Inf1, sup: Sup1 },
+                        success: function (data) {
+
+                            var y = series(data);
+                            console.log(y);
+
+                            Highcharts.chart('container', {
+                                chart: {
+                                    type: 'line'
+                                },
+                                title: {
+                                    text: 'Ventes'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                xAxis: {
+                                    categories: y['categorie']
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Nombre'
+                                    }
+                                },
+                                plotOptions: {
+                                    line: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                                series: [{
+                                    name: 'Categorie Produits/Ventes',
+                                    data: y['data']
+                                }]
+                            });
+                        }
+                    });
+                });
+            });
+
+            });
+
+
+
+
+    </script>
+    <script src="~/Scripts/highcharts.js"></script>
+    <script src="~/Scripts/exporting.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,219 @@
+﻿@model AITECRM.Models.Entreprise
+
+
+
+
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Entreprises</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </h4>
+
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br /><br /><br />
+                @{
+                    ViewBag.Title = "NOUVELLE ENTREPRISE";
+                }
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+                        @Html.ActionLink("NOUVELLE ENTREPRISE", "Create")
+                        <br /><br />
+                        <div class="col-md-12 well">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div>
+                                        <h4>Entreprise</h4>
+                                        <hr />
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Nom)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Nom)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Adresse)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Adresse)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Pays)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Pays)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Code_postal)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Code_postal)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Adresse_Email)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Adresse_Email)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Telephone)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Telephone)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Site_web)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Site_web)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Description)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Description)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Date_enregistrement)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Date_enregistrement)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Contact)
+                                            </dt>
+
+                                            <dd>
+                                                @foreach (var item in Model.Contact)
+                                                {
+                                                    <h2>@item.Contact_name</h2>
+                                                }
+                                            </dd>
+
+                                        </dl>
+                                    </div>
+@using (Html.BeginForm("SendSmsDetails", "Entreprises"))
+{
+
+                                        <div class="form-horizontal">
+                                            <h4>SMS</h4>
+                                            <hr />
+                                            <div class="editor-field">
+                                                <textarea type="text" name="message" id="message">Message</textarea>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="numero" id="numero" value="@Model.Telephone" hidden></input>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="pays" id="pays" value="@Model.Pays" hidden></input>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="id" id="id" value="@Model.Id" hidden></input>
+                                            </div>
+                               
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" href="javascript:void(0);" class="sendSMS" value="Envoyer Sms" />
+                                            </div>
+                                        </div>
+}
+                                    <hr />
+                    @using (Html.BeginForm("SendEmailsDetails", "Entreprises"))
+                    {
+                                        <div class="form-horizontal">
+                                            <h4>EMAIL</h4>
+                                            <hr />
+                                            <div class="editor-field">
+                                                <textarea type="text" name="message" id="message">Message</textarea>
+                                            </div>
+                                            <div class="editor-field">
+                                                <textarea type="text" name="objet" id="objet">Objet</textarea>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="email" id="email" value="@Model.Adresse_Email" hidden/>
+                                            </div>
+
+                                            <div class="editor-field">
+                                                <input name="IdContact" id="IdContact" value="@Model.Id" hidden/>
+                                            </div>
+                                            <div class="editor-field">
+                                                <label>Piece jointe</label>
+                                                <input type="file" name="file" multiple="multiple" />
+                                            </div>
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Envoyer Email" />
+                                            </div>
+                                        </div>
+}
+                                    <p>
+                                        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }) |
+                                        @Html.ActionLink("Liste", "Index")
+                                    </p>
+                                </div>
+                                @Html.Partial("PagePrecedente")
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h2>
+          
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,218 @@
+﻿@model AITECRM.ViewModels.ActiviteViewModel
+
+<html>
+<head>
+
+    <script>
+$('.sendSMS').click(function (e) {
+           e.preventDefault();
+           var $ctrl = $(this);
+           if (confirm('Etes vous sur de vouloir supprimer ce fichier?')) {
+               $.ajax({
+                   url: '@Url.Action("Sms")',
+                type: 'POST',
+                data: { numero: $(this).data('numero'), message: $(this).data('message') }
+                }).done(function (data) {
+                if (data.Result.Message) {
+                alert(data.Result.Message);
+                }
+                }).fail(function () {
+                alert("Il ya un probleme,veuillez reessayer.");
+                })
+
+                }
+                });
+    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Activites</title>
+</head>
+<body>
+    <form>
+        <input type="button" value="Retour" onclick="history.go(-1)">
+    </form>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </h4>
+
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br /><br /><br />
+                @{
+                    ViewBag.Title = "NOUVELLE ACTIVITE";
+                }
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+                        @Html.ActionLink("NOUVELLE ACTIVITE", "Create")
+                        <br /><br />
+                        <div class="col-md-12 well">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div>
+    <h4>Activite</h4>
+    <hr />
+                                        <dl>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.NomEntreprise)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.NomEntreprise)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.NomContact)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.NomContact)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.CategorieActivite)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.CategorieActivite)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.NomActivite)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.NomActivite)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.AdresseEmail)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.AdresseEmail)
+                                            </dd>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Numero)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Numero)
+                                            </dd>
+                                            <dt>
+                                                <label>Liste des Fichiers</label>
+                                            </dt>
+                                            <dd>
+                                                @foreach (var item in Model.FileDetailsVM)
+                                                {
+                                                    <li>
+                                                        <a class="title" href="/Activites/Download/?p=@(item.Id + item.Extension)&d=@item.FileName">@item.FileName</a>
+                                                        
+                                                    </li>
+                                                }
+                                            </dd>
+                                           
+                                            
+                                        </dl>
+
+    </div>
+                                   @using (Html.BeginForm("SendSmsDetails", "Activites"))
+                                   {
+
+                                        <div class="form-horizontal">
+                                            <h4>SMS</h4>
+                                            <hr />
+                                            <div class="editor-field">
+                                                <textarea type="text" name="message" id="message">Message</textarea>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="numero" id="numero" value="@Model.Numero" hidden/>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="pays" id="pays" value="@Model.pays" hidden/>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="IdContact" id="IdContact" value="@Model.ContactId" hidden/>
+                                            </div>
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" href="javascript:void(0);" class="sendSMS" value="Envoyer Sms" />
+                                            </div>
+                                        </div>
+                                   }
+                                    <hr />
+            @using (Html.BeginForm("SendEmailsDetails", "Activites"))
+            {
+                                   
+                                        <div class="form-horizontal">
+                                            <h4>EMAIL</h4>
+                                            <hr />
+                                            <div class="editor-field">
+                                                <textarea type="text" name="message" id="message">Message</textarea>
+                                            </div>
+                                            <div class="editor-field">
+                                                <input name="email" id="email" value="@Model.AdresseEmail" hidden></input>
+                                            </div>
+
+                                            <div class="editor-field">
+                                                <input name="NomActivite" id="NomActivite" value="AITE-CRM @Model.NomActivite" hidden></input>
+                                            </div>
+
+                                            <div class="editor-field">
+                                                <input name="IdContact" id="IdContact" value="@Model.ContactId" hidden></input>
+                                            </div>
+                                            <div class="editor-field">
+                                                <label>Piece jointe</label>
+                                                <input type="file" name="file" multiple="multiple" />
+                                            </div>
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Envoyer Email" />
+                                            </div>
+                                        </div>
+}
+                                    <p>
+                                        @Html.ActionLink("Modifier", "Edit", new { id = Model.ActiviteId }) |
+                                        @Html.ActionLink("Liste", "Index")
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        @Html.Partial("PagePrecedente")
+                    </div>
+                </div>
+            </h2>
+
+          
+
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>

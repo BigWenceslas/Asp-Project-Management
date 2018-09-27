@@ -1,0 +1,128 @@
+﻿@model AITECRM.Models.Article
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Contacts</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <h4>
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                </nav>
+            </h4>
+        </div>
+    </div>
+
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br /><br /><br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+                        @using (Html.BeginForm("Create", "Articles"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ActionLink("NOUVEL Article", "Create")<br /><br />
+                            <div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="Nom">Nom du produit</label>
+                                    <input type="text" class="form-control" id="Nom" name="Nom" placeholder="Entrer le nom du produit" value="" required>
+                                    @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="CategorieProduit_">Categorie</label>
+                                    @Html.DropDownList("CategorieProduit_", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CategorieProduit_, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="Descriptionp">Description</label>
+                                    <input type="text" class="form-control" id="Descriptionp" name="Descriptionp" placeholder="Entrer le numero de telephone" value="" required>
+                                    @Html.ValidationMessageFor(model => model.Descriptionp, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="Prix">Prix</label>
+                                    <input type="number" class="form-control" id="Prix" name="Prix" placeholder="Entrer le prix" value="" required>
+                                    @Html.ValidationMessageFor(model => model.Prix, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="Date_Creation">Date de creation</label>
+                                    <input type="text" class="form-control" id="Date_Creation" name="Date_Creation" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Enregistrer</button>
+                        }
+                     </div>
+         
+              
+                        </h4>
+            </div>
+            </h2>
+            <center>
+                <div>
+                    <h2>
+                        @Html.ActionLink("Liste des Produits", "Index")
+                    </h2>
+                </div>
+
+            </center>
+            @Html.Partial("PagePrecedente")
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+
+
+<link rel="stylesheet" href="~/Content/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.theme.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.structure.css" />
+<script src="~/Scripts/jquery-ui.js"></script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#Date_Creation').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+    })
+    
+</script>

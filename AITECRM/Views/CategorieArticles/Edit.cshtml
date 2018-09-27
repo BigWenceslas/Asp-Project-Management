@@ -1,0 +1,123 @@
+﻿@model AITECRM.Models.CategorieArticle
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aite Crm Entreprises</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                @Html.Partial("Menu")
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <center>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h2>
+                <br /><br />
+                &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                @Html.Partial("MenuDonnes")
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <br /><br />
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <br /><br /><br />
+                    <div class="btn-group" data-toggle="buttons"> </div>
+
+                    <div class="container">
+                        @Html.ActionLink("Nouvelle Categorie d'Article", "Create")<br />
+                        <div class="col-md-12 well">
+                            <div class="row">
+                                <h4>
+                                    <div class="col-md-12">
+                                       @using (Html.BeginForm())
+                                       {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+                                            <h4>CategorieArticle</h4>
+                                            <hr />
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.Id)
+
+                                            <div class="form-group">
+                                                <label>Sous Categorie</label>
+                                                @Html.DropDownList("CategorieParente_", null, htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.CategorieParente_, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nom</label>
+                                                @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                          
+                                            </div>
+
+                                            <div class="form-group">
+                                              <label>Description</label>
+                                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Save" class="btn btn-default" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                       }
+                                        <div>
+                                            @Html.ActionLink("Liste", "Index")
+                                        </div>
+                                    </div>
+                                </h4>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </h2>
+            <center>
+                <div>
+                    <h2>
+                        @Html.ActionLink("Liste des sous Categories d'Articles", "Index")
+                    </h2>
+                </div>
+
+            </center>
+            @Html.Partial("PagePrecedente")
+            <footer>
+                <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+            </footer>
+        </main>
+    </center>
+
+</body>
+</html>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

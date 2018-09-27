@@ -1,0 +1,96 @@
+﻿@model IEnumerable<AITECRM.Models.ContactGroup>
+    @using GridMvc.Html
+
+
+<h2>Index</h2>
+
+
+@section scripts {
+    <script>
+    $(document).ready(function(){
+        $('.btn-delete-contacts').click(function (event) {
+            var bouttonclick = $(event.target).closest('button');
+            var Iddelete = $(bouttonclick).attr('data-id');
+            alert(Iddelete);
+            $.ajax({
+                url: '@Url.Action("Newdelete")',
+                type: 'post',
+                data: { id: Iddelete },
+                success: function (data){
+                    if (data.Suppression == "Ok") {
+                        $(bouttonclick).closest("tr").fadeOut(400, function () {
+                            $(this).remove();
+                        })
+                    }
+                }
+            })
+        });
+    });
+    </script>
+}
+
+<html>
+<head>
+    <title>Aite Crm Entreprises</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                 @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <br /><br /><br /><br />
+                    <h4>
+                        LISTE DES TYPES DE CONTACTS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVEAU", "Create", "ContactGroups", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        <a href="/ContactGroups/ExportExcel"><button class="btn btn-outline-success pull-right" type="button"><h4>Excel</h4></button></a>
+                        <a href="/ContactGroups/ExportPdf"><button class="btn btn-outline-success pull-right" type="button"><h4>Pdf</h4></button></a>
+                        <a href="/ContactGroups/ExportWord"><button class="btn btn-outline-success pull-right" type="button"><h4>Word</h4></button></a>
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                       @Html.Grid(Model).Columns(colums =>
+{
+    colums.Add(p => p.Type_name).Filterable(true).Sortable(true);
+    colums.Add(p => p.Description).Filterable(true).Sortable(true);
+    colums.Add()
+           .Sanitized(false)
+           .Encoded(false)
+           .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.Id }));
+    colums.Add()
+           .Sanitized(false)
+           .Encoded(false)
+           .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.Id }));
+
+    colums.Add()
+          .Sanitized(false)
+          .Encoded(false)
+          .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.Id + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+
+})
+                    </h4>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+</body>
+</html>
+
+
+
+
+

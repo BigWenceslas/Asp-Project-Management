@@ -1,0 +1,178 @@
+﻿@model IEnumerable<AITECRM.ViewModels.ActiviteViewModel>
+<html>
+<head>
+
+    <script>
+
+
+    </script>
+    <title>Aite Crm Rapports Activites</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <br /><br /><br /><br />
+                    <h4>
+                        Rapports Activites &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div><hr />
+                        @Html.Partial("Rapport")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4></h4>
+
+                    <div id="container" style="width:90%; height:400px;">
+@using (Html.BeginForm("ActivitesPdf", "DalRapports", FormMethod.Post, new { id = "f" }))
+{
+                            <div class="col-sm-6 form-group">
+                                <label>Etat de L'Activite</label>
+                                <select name="etat" id="etat" class="form-control">
+                                    <option value=""></option>
+                                    <option value="En Cours">En Cours</option>
+                                    <option value="Interrompue">Interrompue </option>
+                                    <option value="Annule">Annule</option>
+                                    <option value="Reussie">Reussie</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Entreprise</label>
+                                @Html.DropDownList("Entreprises", (IEnumerable<SelectListItem>)ViewData["Entreprises"], "Selectionner ", new { @class = "form-control" })
+                                
+                            </div>
+                         
+                            <div class=" form-group">
+                                <label>Date Min</label>
+                                <input type="text" class="form-control" id="inf" name="inf" />
+                            </div>
+                            <div class=" form-group">
+                                <label>Date Max</label>
+                                <input type="text" class="form-control" id="sup" name="sup" />
+                            </div>
+                            <br />
+                            @*<button id="Previsualiser" name="Previsualiser" type="submit" class="btn-primary">Previsualiser</button>*@
+                            <div class=" form-group">
+                                <select name="Export" id="Export" required class="form-control">
+                                    <option value="Pdf" id="pdf1">PDF</option>
+                                    <option value="Excel" id="excel1">Excel</option>
+                                    <option value="Word" id="word1">Word</option>
+                                </select>
+                            </div>
+                            <button id="pdf" name="pdf" type="submit" class="btn-primary">Exporter</button>
+                       }
+
+                        <button id="GetSummary" name="GetSummary" type="submit" class="btn-primary">Previsualiser</button>
+
+                        <script id="employeeSummaryTemplate" type="text/html">
+                            <table class="table table-bordered table-condensed">
+                                <tr>
+                                    <th>Nom Entreprise</th>
+                                    <th>Nom Contact</th>
+                                    <th>Categorie Activite</th>
+                                    <th>Etat Activite</th>
+                                    <th>Nom Activite</th>
+                                    <th>Prix</th>
+                                </tr>
+                                {{#empSummary}}
+                                <tr id="tr{{NomEntreprise}}">
+                                    <td>{{NomEntreprise}}</td>
+                                    <td>{{NomContact}}</td>
+                                    <td>{{CategorieActivite}}</td>
+                                    <td>{{EtatActivite}}</td>
+                                    <td>{{NomActivite}}</td>
+                                    <td>{{Prix}}</td>
+                                </tr>
+                                {{/empSummary}}
+                            </table>
+                        </script>
+                        <div id="summary">
+                            <!-- mustache.js output goes here -->
+                        </div>
+
+                    </div>
+
+
+
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+    <script>
+        $(function () {
+            $('#inf').datepicker({
+                changeMonth: true,
+                dateFormat: 'dd/mm/yy',
+                changeYear: true
+            });
+        });
+        $(function () {
+            $('#sup').datepicker({
+                changeMonth: true,
+                dateFormat: 'dd/mm/yy',
+                changeYear: true
+            });
+        });
+    </script>
+
+
+    @section scripts{
+    <script src="~/Scripts/mustache.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript">
+
+        //var pdf1 = document.getElementById('pdf1');
+        //var word1 = document.getElementById('excel1');
+        //var excel1 = document.getElementById('word1');
+        var exp = document.getElementById('Export');
+        exp.addEventListener('change', function () { document.getElementById('f').action = "@Url.Action("Activites", "DalRapports")" + exp.value; })
+
+     
+    </script>
+   
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#GetSummary').click(function () {
+                var Inf1 = $('#inf').val();
+                var Sup1 = $('#sup').val();
+                var Etat1 = $('#etat').val();
+                var Entreprise1 = $('#Entreprises').val();
+                $.ajax({
+                    url: '@Url.Action("getActivitesJs", "DalRapports")', type: "POST", dataType: "json",
+                    data: { inf: Inf1, sup: Sup1, etat:Etat1, Entreprises:Entreprise1 },
+                    success: function (data) {
+                        var html = Mustache.to_html($("#employeeSummaryTemplate").html(), { empSummary: data });
+                        $("#summary").html(html);
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                        alert(status);
+                        alert(error);
+                    }
+                });
+            });
+        });
+
+    </script>   
+    }
+</body>
+</html>
+
+
+
+
+

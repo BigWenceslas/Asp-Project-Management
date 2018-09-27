@@ -1,0 +1,99 @@
+﻿@model IEnumerable<AITECRM.Models.Projet>
+@using GridMvc.Html
+
+<h2>Index</h2>
+
+
+@section scripts {
+    <script>
+    $(document).ready(function(){
+        $('.btn-delete-contacts').click(function (event) {
+            var bouttonclick = $(event.target).closest('button');
+            var Iddelete = $(bouttonclick).attr('data-id');
+            alert(Iddelete);
+            $.ajax({
+                url: '@Url.Action("Newdelete")',
+                type: 'post',
+                data: { id: Iddelete },
+                success: function (data){
+                    if (data.Suppression == "Ok") {
+                        $(bouttonclick).closest("tr").fadeOut(400, function () {
+                            $(this).remove();
+                        })
+                    }
+                }
+            })
+        });
+    });
+    </script>
+}
+
+<html>
+<head>
+    <title>Aite Crm Projets</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <br /><br /><br /><br />
+                    <h4>
+                        LISTE DES PROJETS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                         @Html.ActionLink("NOUVEAU", "Create", "Projets", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        <button class="btn btn-outline-success" type="button" href="news_client.html"><h4>IMPORTER</h4></button>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("Excel", "ExportExcel", "Projets", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Pdf", "ExportPdf", "Projets", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        @Html.ActionLink("Word", "ExportWord", "Projets", new { area = "" }, new { @class = "btn btn-outline-success" })
+
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <h4>
+                      @Html.Grid(Model).Columns(colums =>
+                 {
+                     colums.Add(p => p.Titre).Filterable(true).Sortable(true);
+                     colums.Add(p => p.Description).Filterable(true).Sortable(true);
+                     colums.Add(p => p.Date_debut).Filterable(true).Sortable(true).Titled("Debut");
+                     colums.Add(p => p.Date_fin).Filterable(true).Sortable(true).Titled("Fin");
+                     colums.Add()
+                            .Sanitized(false)
+                            .Encoded(false)
+                            .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.Id }));
+                     colums.Add()
+                            .Sanitized(false)
+                            .Encoded(false)
+                            .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.Id }));
+                     colums.Add()
+                                          .Sanitized(false)
+                                          .Encoded(false)
+                                          .RenderValueAs(p => Html.ActionLink("Imprimer", "PrintDetails", new { id = p.Id }));
+
+                     colums.Add()
+                           .Sanitized(false)
+                           .Encoded(false)
+                           .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.Id + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+
+                 })
+                    </h4>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+</body>
+</html>
+

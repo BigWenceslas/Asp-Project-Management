@@ -1,0 +1,17 @@
+﻿Enable-Migrations -ContextTypeName AITECRMContext -MigrationsDirectory Migrations\AITE
+
+add-migration -ConfigurationTypeName AITECRM.Migrations.AITE.Configuration "Initial Create"
+
+update-database -ConfigurationTypeName AITECRM.Migrations.AITE.Configuration
+
+
+
+ Addfile service = new Addfile();
+                foreach (var item in fichier.fichier)
+                {
+                    service.SaveFilesDetails(item);
+                }
+
+
+				@using (Html.BeginForm("UploadMultipleFiles", "FileUpload", FormMethod.Post, new { @enctype = "multipart/FormMethod-data" }))
+{

@@ -1,0 +1,94 @@
+﻿@model CRM.ViewModels.ActiviteViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DetailsPrint</title>
+</head>
+<body>
+    <div>
+        <h4>Activite</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NomEntreprise)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NomEntreprise)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NomContact)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NomContact)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CategorieActivite)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CategorieActivite)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NomActivite)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NomActivite)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EtatActivite)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EtatActivite)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateCreation)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Prix)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Prix)
+            </dd>
+
+            <dt>
+                <label>Liste des Fichiers</label>
+            </dt>
+            <dd>
+                @foreach (var item in Model.FileDetailsVM)
+                {
+                    <li>
+                        @(item.FileName + item.Extension)
+
+                    </li>
+                }
+            </dd>
+
+
+    
+        </dl>
+    </div>
+   
+</body>
+</html>

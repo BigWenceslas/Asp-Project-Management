@@ -1,0 +1,177 @@
+﻿@model AITECRM.Models.Contact
+@using GridMvc.Html
+<html>
+<head>
+
+    <title>Aite Crm Contacts</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <h2>
+                        <br /><br />
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <br /><br /><br />
+                            <div class="btn-group" data-toggle="buttons"> </div>
+
+                            <div class="container">
+                                <center>
+                                    <h4>
+                                        @using (Html.BeginForm("Create", "Contacts"))
+                                        {
+                                            @Html.ActionLink("NOUVEAU CONTACT", "Create")<br />
+                                            @Html.AntiForgeryToken()
+                                            <div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Contact_name">Nom Contact</label>
+                                                    <input type="text" class="form-control" id="Contact_name" name="Contact_name" placeholder="Entrer le nom du Contact" value="" required>
+                                                    @Html.ValidationMessageFor(model => model.Contact_name, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Telephone">Telephone mobile</label>
+                                                    <input type="text" class="form-control" id="Telephone" name="Telephone" placeholder="Entrer l'addresse" value="" required>
+                                                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-sm-2"></label>
+                                                    <div class="col-sm-10">
+                                                        <p id="Status" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="Description">Addresse</label>
+                                                <input type="text" class="form-control" id="Adresse" name="Adresse" placeholder="Entrer l'Adresse'" value="" required>
+                                                @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Pays" id="Pays">Pays</label>
+                                                    @Html.Partial("Pays")
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid city.
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="Code_postal">Code postal</label>
+                                                    <input type="text" class="form-control" id="Code_postal" name="Code_postal" placeholder="Code postal" value="" required>
+                                                    @Html.ValidationMessageFor(model => model.Code_postal, "", new { @class = "text-danger" })
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid state.
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="Civilite">Civilité</label>
+                                                    <select id="Civilite" name="Civilite">
+                                                        <option value="Mr" selected="selected">Mr </option>
+                                                        <option value="Mr">Mr </option>
+                                                        <option value="Mde">Mde</option>
+                                                        <option value="Mme">Mme</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid zip.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Entreprise_">Entreprise</label>
+                                                    @Html.DropDownList("Entreprise_", null, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Entreprise_, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Description">poste occupé</label>
+                                                    <input type="text" class="form-control" id="Description" name="Description" placeholder="Poste occupe" value="" required>
+                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="validationCustom01">categorie</label>
+                                                    @Html.DropDownList("Contactgroups", null, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Contactgroups, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Adresse_mail">E-mail</label>
+                                                    <input type="text" class="form-control" id="Adresse_mail" name="Adresse_mail" placeholder="Entrer l'addresse mail" value="" required>
+                                                    @Html.ValidationMessageFor(model => model.Adresse_mail, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Date_naissance">Date de naissance</label>
+                                                    <input type="text" class="form-control" id="Date_naissance" name="Date_naissance" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="Date_enregistrement">Date d'enregistrement</label>
+                                                    <input type="text" class="form-control" id="Date_enregistrement" name="Date_enregistrement" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" type="submit" value="Creer">Enregistrer</button>
+                                            <br />
+                                            @Html.Partial("PagePrecedente")
+                                        }
+                                    </h4>
+                                </center>
+                            </div>
+                    </h2>
+                   
+
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+    </h4>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#Date_enregistrement').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+    });
+    $(function () {
+        $('#Date_naissance').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd/mm/yy',
+            yearRange: "-100:+0"
+        });
+    });
+
+    function userverif() {
+        $("#Status").html("Verification...");
+        $.post("@Url.Action("VerifierNumero","Contacts")",
+    {
+        userdata: $("#Telephone").val()
+    },
+    function (data) {
+        if (data == 0) {
+            $("#Status").html('<font color="Green">Numero Disponible !</font>');
+            $("#Telephone").css("border-color", "Green");
+        }
+        else {
+            $("#Status").html('<font color="Red">Numero indisponible !</font>');
+            $("#Telephone").css("border-color", "Red");
+        }
+    }
+            )
+    }
+    </script>
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+}

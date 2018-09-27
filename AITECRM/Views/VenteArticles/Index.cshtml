@@ -1,0 +1,122 @@
+﻿@model IEnumerable<AITECRM.ViewModels.VenteProduitsViewModel >
+@using GridMvc.Html
+<html>
+<head>
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete-contacts').click(function (event) {
+                var bouttonclick = $(event.target).closest('button');
+                var Iddelete = $(bouttonclick).attr('data-id');
+                alert(Iddelete);
+                $.ajax({
+                    url: '@Url.Action("Newdelete")',
+                    type: 'post',
+                    data: { id: Iddelete },
+                    success: function (data) {
+                        if (data.Suppression == "Ok") {
+                            $(bouttonclick).closest("tr").fadeOut(400, function () {
+                                $(this).remove();
+                            })
+                        }
+                    }
+                })
+            });
+        });
+
+    </script>
+    <title>Aite Crm Ventes Articles</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <br /><br /><br /><br />
+                    <h4>
+                        Liste des Ventes de Produits &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                        @Html.ActionLink("NOUVELLE VENTE", "Create", "VenteArticles", new { area = "" }, new { @class = "btn btn-outline-success" })
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+
+                    </h4>
+
+                    @Html.Grid(Model).Columns(columns =>
+               {
+                   columns.Add(p => p.NomEntreprise).Filterable(true).Sortable(true);
+                   columns.Add(p => p.NomClient).Filterable(true).Sortable(true);
+                   columns.Add(p => p.NomCategorie);
+                   columns.Add(p => p.NomProduit).Filterable(true).Sortable(true);
+                   columns.Add(p => p.Prix).Filterable(true).Sortable(true);
+                   columns.Add(p => p.DateVente).Filterable(true).Sortable(true);
+                   columns.Add()
+                           .Sanitized(false)
+                           .Encoded(false)
+                           .RenderValueAs(p => Html.ActionLink("Editer", "Edit", new { id = p.VenteId }));
+
+                   columns.Add()
+                        .Sanitized(false)
+                        .Encoded(false)
+                        .RenderValueAs(p => Html.ActionLink("Details", "Details", new { id = p.VenteId }));
+                   columns.Add()
+                             .Sanitized(false)
+                             .Encoded(false)
+                             .RenderValueAs(p => Html.ActionLink("Imprimer", "PrintDetails", new { id = p.VenteId }));
+
+                   columns.Add()
+                         .Sanitized(false)
+                         .Encoded(false)
+                         .RenderValueAs(p => "<button class='btn btn-default btn-delete-contacts' data-id = '" + p.VenteId + "'> <span class ='glyphicon glyphicon-remove-circle'/> </button>");
+
+               }
+                              )
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+</body>
+</html>
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Article_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAchat)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAchat)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>*@

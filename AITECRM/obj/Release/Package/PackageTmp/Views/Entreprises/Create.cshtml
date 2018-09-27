@@ -1,0 +1,118 @@
+﻿@model AITECRM.Models.Entreprise
+@using GridMvc.Html
+<html>
+<head>
+
+    <title>Aite Crm Entreprises</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main" id="Donnees">
+                    <h2>
+                        <br /><br />
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <br /><br /><br />
+                            <div class="btn-group" data-toggle="buttons"> </div>
+
+                            <div class="container">
+                                <h3>
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.ActionLink("NOUVELLE ENTREPRISE", "Create")<br />
+                                        @Html.AntiForgeryToken()
+                                        <div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Nom">Nom entreprise</label>
+                                                <input type="text" class="form-control" value="" id="Nom" name="Nom" placeholder="Entrer le nom de l'entreprise">
+                                                @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Adresse">Addresse</label>
+                                                <input type="text" class="form-control" name="Adresse" id="Adresse" placeholder="Entrer l'addresse" value="">
+                                                @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Pays">Pays</label>
+                                                @Html.Partial("Pays")
+                                                @Html.ValidationMessageFor(model => model.Pays, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="Code_postal">Code postal</label>
+                                                <input type="text" class="form-control" value="" id="Code_postal" name="Code_postal" placeholder="Code postal">
+                                                @Html.ValidationMessageFor(model => model.Code_postal, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="Description">Zip</label>
+                                                <input type="text" class="form-control" value="" name="Description" id="Description" placeholder="Secteur d'activité">
+                                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Telephone">Telephone</label>
+                                                <input type="text" class="form-control" id="Telephone" name="Telephone" placeholder="Entrer le numero de telephone" value="">
+                                                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Adresse_Email">E-mail</label>
+                                                <input type="text" class="form-control" id="Adresse_Email" name="Adresse_Email" placeholder="Entrer l'addresse mail" value="">
+                                                @Html.ValidationMessageFor(model => model.Adresse_Email, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Date_enregistrement">Date d'enregistrement</label>
+                                                <input type="text" class="form-control" id="Date_enregistrement" name="Date_enregistrement" value="@DateTime.Now" onfocus="if (this.value == '@DateTime.Now') { this.value = '' }" onblur="    if (this.value == '') { this.value = '@DateTime.Now' }">
+                                                @*@Html.TextBoxFor(model => model.Date_enregistrement, new { @class = "form-control", @Value = DateTime.Now.ToString() })*@
+                                                @*@Html.ValidationMessageFor(model => model.Date_enregistrement, "try", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="Site_web">Site web</label>
+                                                <input type="text" class="form-control" id="Site_web" name="Site_web" placeholder="Entrer le site web" value="">
+                                                @Html.ValidationMessageFor(model => model.Site_web, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                    }
+                                    @Html.Partial("PagePrecedente")
+                                </h3>
+                            </div>
+                    </h2>
+                    <div>
+                        <h2>
+                            @Html.ActionLink("Liste des Entreprises", "Index")
+                        </h2>
+                    </div>
+
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main></h4>
+
+             
+    <script type="text/javascript">
+ $(function() {
+     $('#Date_enregistrement').datepicker({
+         dateFormat: 'dd/mm/yy'
+     });
+  } );
+    </script>
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+}

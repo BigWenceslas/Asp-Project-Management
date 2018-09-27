@@ -1,0 +1,64 @@
+﻿@model AITECRM.Models.Activite
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Activite</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categorie_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categorie_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DacteCreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DacteCreation)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

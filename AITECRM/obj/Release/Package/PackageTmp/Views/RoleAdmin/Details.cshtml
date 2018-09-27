@@ -1,0 +1,71 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+<html>
+<head>
+    <title>Aite Crm Gestion des Roles</title>
+</head>
+<body>
+    <h4>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    @Html.Partial("Menu")
+                </nav>
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <br /><br /><br /><br />
+                    <h4>
+                        DETAILS DES ROLES &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="btn-group" role="group" aria-label="Basic example">
+                        </div>
+                    </h4>
+
+                    <div class="table-responsive">
+                    </div>
+
+
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                        </dl>
+                    </div>
+                    <h4>Liste des utilisateurs de ce role</h4>
+                    @if (ViewBag.UserCount == 0)
+                    {
+                        <hr />
+                        <p>Aucun utilisateur trouve dans ce role.</p>
+                    }
+                    <table class="table">
+                        @foreach (var item in ViewBag.Users)
+                        {
+                            <tr>
+                                <td>
+                                    @item.UserName
+
+                            </tr>
+                        }
+                    </table>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+                    @Html.Partial("PagePrecedente")
+                    <footer>
+                        <center><> <strong>Copyright © 2016 Tout droits réservés. Par <a href="http://www.aite-eonsulting.com">Aite Consulting</a>.</strong></center>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+    </h4>
+
+
+</body>
+</html>

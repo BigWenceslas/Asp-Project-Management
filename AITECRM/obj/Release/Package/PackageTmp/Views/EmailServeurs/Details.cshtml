@@ -1,0 +1,62 @@
+﻿@model AITECRM.Models.EmailServeur
+
+<h2>Details</h2>
+
+<div>
+    <h4>EmailServeur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Port)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Port)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAjout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAjout)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServeurAdresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServeurAdresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdresseCRM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdresseCRM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassWordCRM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassWordCRM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EtatConfig)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EtatConfig)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
