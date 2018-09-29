@@ -10,10 +10,10 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, consultez la p
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/AITECRM2.mdf">
-      <publishTime>09/27/2018 10:19:14</publishTime>
+      <publishTime>09/27/2018 23:20:50</publishTime>
     </File>
     <File Include="App_Data/AITECRM2_log.ldf">
-      <publishTime>09/27/2018 10:19:14</publishTime>
+      <publishTime>09/27/2018 23:20:50</publishTime>
     </File>
     <File Include="App_Data/email/FormeFichierExcelContacts.xlsx">
       <publishTime>06/04/2018 03:18:41</publishTime>
@@ -34,7 +34,7 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, consultez la p
       <publishTime>05/29/2018 00:49:53</publishTime>
     </File>
     <File Include="bin/AITECRM.dll">
-      <publishTime>09/16/2018 02:17:48</publishTime>
+      <publishTime>09/28/2018 20:03:44</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>05/25/2018 07:38:41</publishTime>
@@ -320,6 +320,9 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, consultez la p
     </File>
     <File Include="bootstrap/New folder/bootstrap.min.css">
       <publishTime>12/20/2017 09:51:50</publishTime>
+    </File>
+    <File Include="ClassDiagram1.cd">
+      <publishTime>09/27/2018 23:17:06</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
       <publishTime>12/21/2017 09:14:54</publishTime>

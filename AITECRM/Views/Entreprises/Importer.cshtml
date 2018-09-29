@@ -36,12 +36,14 @@
                         <div class="col-md-12 well">
                             <div class="row">
                                 <div class="col-md-12">
-                                   <form method="post" enctype="multipart/form-data" action="/Entreprises/Importer_">
-                                       <div>
-                                           <input name="file" type="file" required />
-                                           <button type="submit" class="btn btn-default">Importer des Donnees</button>
-                                       </div>
-                                   </form>
+                                    @using (Html.BeginForm("Importer_", "Entreprises",null,FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div>
+                                            <input name="file" type="file" required />
+                                            <button type="submit" class="btn btn-default">Importer des Donnees</button>
+                                        </div>
+                                    }
                                 </div>
                             </div>
 
