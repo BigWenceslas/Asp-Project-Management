@@ -197,8 +197,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Communication\CommunicationAreaRegistration.cs" />
-    <Compile Include="Areas\Rapports\RapportsAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitesController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -434,8 +432,6 @@
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Rapports\Views\web.config" />
-    <Content Include="Areas\Communication\Views\web.config" />
     <Content Include="Grid.mvc.readme" />
     <Content Include="Content\connect\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\connect\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
@@ -500,6 +496,7 @@
     <Content Include="Content\connect\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="App_Data\email\FormeFichierExcelContacts.xlsx" />
     <Content Include="App_Data\email\FormeFichierExcelEntreprise.xlsx" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\Aite APP.pubxml" />
     <None Include="Properties\PublishProfiles\AITECRM.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -799,12 +796,6 @@
   <ItemGroup>
     <Folder Include="App_Data\import\" />
     <Folder Include="App_Data\SavedDatabase\" />
-    <Folder Include="Areas\Communication\Controllers\" />
-    <Folder Include="Areas\Communication\Models\" />
-    <Folder Include="Areas\Communication\Views\Shared\" />
-    <Folder Include="Areas\Rapports\Controllers\" />
-    <Folder Include="Areas\Rapports\Models\" />
-    <Folder Include="Areas\Rapports\Views\Shared\" />
     <Folder Include="Content\css\" />
     <Folder Include="Content\Templates\" />
     <Folder Include="Views\BackTask\" />
