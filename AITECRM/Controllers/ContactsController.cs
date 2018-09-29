@@ -317,7 +317,7 @@ namespace AITECRM.Controllers
             AITECRMContext DBV = new AITECRMContext();
             Entreprise verifE = new Entreprise();
             Entreprise ImportEntreprise = new Entreprise();
-            verifE = DBV.Entreprises.Where(o => o.Nom.ToLower() == name.ToLower()).FirstOrDefault();
+            verifE = DBV.Entreprises.Where(o => o.Nom == name).FirstOrDefault();
             if (verifE == null)
             {
                 ImportEntreprise.Nom = "importer";
@@ -346,6 +346,7 @@ namespace AITECRM.Controllers
                 ImportGroups.Type_name = "importer";
                 ImportGroups.Description = "importer";
             }
+            DBV.Dispose();
             return (ImportGroups);
         }
 
@@ -372,7 +373,6 @@ namespace AITECRM.Controllers
                     file.SaveAs(path);
                     try
                     {
-
 
                         ArrayList list = new ArrayList();
                         _Application fichier = new Application();
@@ -402,17 +402,20 @@ namespace AITECRM.Controllers
                             string name = "importer";
                             int EntrepriseG; int groups;
                             Entreprise verifE = new Entreprise();
-                            verifE = db.Entreprises.Where(o => o.Nom.ToLower() == name.ToLower()).FirstOrDefault();
-
                             ContactGroup verifG = new ContactGroup();
-                            verifG = db.ContactGroup.Where(o => o.Type_name.ToLower() == name.ToLower()).FirstOrDefault();
-                            if (VerifierEntreprise(name) == null && VerifierContact(name) == null)
+
+                        verifE = db.Entreprises.Where(o => o.Nom == name).FirstOrDefault();
+                        verifG = db.ContactGroup.Where(o => o.Type_name.ToLower() == name.ToLower()).FirstOrDefault();
+                            if (verifE == null && verifG == null)
                             {
                                 Entreprise ImportEntreprise = VerifierEntreprise(name);
                                 ContactGroup ImportGroup = VerifierContact(name);
+                                db.Entreprises.Add(ImportEntreprise);
+                                db.ContactGroup.Add(ImportGroup);
+                                db.SaveChanges();
 
-                                EntrepriseG = db.Entreprises.Where(o => o.Nom == name).FirstOrDefault().Id;
-                                groups = db.ContactGroup.Where(o => o.Type_name == name).FirstOrDefault().Id;
+                            EntrepriseG = db.Entreprises.Where(o => o.Nom == name).FirstOrDefault().Id;
+                            groups = db.ContactGroup.Where(o => o.Type_name == name).FirstOrDefault().Id;
 
                                 for (int k = startRow; k <= endRow; k++)
                                 {
@@ -457,12 +460,13 @@ namespace AITECRM.Controllers
                                                 ImportE.Telephone = Convert.ToInt32(Numtelephone);
                                                 ImportE.Adresse_mail = adressemail;
                                                 ImportE.Description = description;
+                                                ImportE.Civilite = civilite;
                                                 ImportE.Date_enregistrement = DateTime.Now;
                                                 ImportE.Date_naissance = DateTime.Now;
                                                 ImportE.Entreprise_ = EntrepriseG;
                                                 ImportE.Contactgroups = groups;
-                                                db.Contacts.Add(ImportE); db.SaveChanges();
-
+                                                db.Contacts.Add(ImportE);
+                                                db.SaveChanges();
 
 
                                             }
@@ -529,6 +533,7 @@ namespace AITECRM.Controllers
                                                 ImportE.Telephone = Convert.ToInt32(Numtelephone);
                                                 ImportE.Adresse_mail = adressemail;
                                                 ImportE.Description = description;
+                                                ImportE.Civilite = civilite;
                                                 ImportE.Date_enregistrement = DateTime.Now;
                                                 ImportE.Date_naissance = DateTime.Now;
                                                 ImportE.Entreprise_ = EntrepriseG;
@@ -603,6 +608,7 @@ namespace AITECRM.Controllers
                                                 ImportE.Telephone = Convert.ToInt32(Numtelephone);
                                                 ImportE.Adresse_mail = adressemail;
                                                 ImportE.Description = description;
+                                                ImportE.Civilite = civilite;
                                                 ImportE.Date_enregistrement = DateTime.Now;
                                                 ImportE.Date_naissance = DateTime.Now;
                                                 ImportE.Entreprise_ = EntrepriseG;
@@ -671,6 +677,7 @@ namespace AITECRM.Controllers
                                                 ImportE.Telephone = Convert.ToInt32(Numtelephone);
                                                 ImportE.Adresse_mail = adressemail;
                                                 ImportE.Description = description;
+                                                ImportE.Civilite = civilite;
                                                 ImportE.Date_enregistrement = DateTime.Now;
                                                 ImportE.Date_naissance = DateTime.Now;
                                                 ImportE.Entreprise_ = EntrepriseG;
@@ -773,7 +780,6 @@ namespace AITECRM.Controllers
                 };
                 db.Emails.Add(Envoye);
                 db.SaveChanges();
-                db.Dispose();
 
                 return RedirectToAction("SuccesEmails");
             }
